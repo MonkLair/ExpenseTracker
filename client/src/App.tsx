@@ -1,13 +1,11 @@
 import Website from "./pages/MainPage/components/Website"
 
-
 function App() {
-
-  return (
-    <>
-        <Website></Website>
-    </>
-  )
+    return (
+        <>
+            <Website></Website>
+        </>
+    )
 }
 
 export default App

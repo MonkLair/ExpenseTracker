@@ -1,29 +1,53 @@
 import { Link, useNavigate } from 'react-router'
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
-import { faKey, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faKey, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux'
 import { useEffect, useState } from 'react'
 import MyButton from '../../../components/EntryButton/MyButton'
 import Incorrect from '../../../components/IncorrectSection/Incorrect'
 import LanguageBtn from '../../../components/LanguageButton/LanguageBtn'
 import { loginSlice } from '../store/LoginSlice'
-import { handleLoginForm } from '../helpers/loginHelper'
+import { login } from '../../../store/reducers/authSlice'
 import LoginInput from './LoginInput'
+import FormService from '../../../services/FormService'
+import ErrorService from '../../../services/ErrorService'
 
 export function Login() {
     const navigate = useNavigate()
     const loginState = useAppSelector(state => state.loginReducer)
-    const dispatch = useAppDispatch()
-    const actions = loginSlice.actions
+    const authState = useAppSelector(state => state.authReducer)
 
-    const [isClicked, setIsClicked] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
+    const { setEmailErrorType, setPasswordErrorType, clearAll } = loginSlice.actions
+
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [loginApiError, setLoginApiError] = useState('')
 
     useEffect(() => {
-        if (isClicked) {
-            handleLoginForm(dispatch, actions, loginState)
+        if (authState.isAuth) {
+            navigate('/dashboard')
         }
+    }, [authState.isAuth, navigate])
 
-    }, [loginState])
+    useEffect(() => {
+        setLoginApiError(authState.loginApiError)
+    }, [authState.loginApiError])
+
+    async function handleSubmit() {
+        if (FormService.checkLogin(email, password)) {
+            try {
+                dispatch(clearAll())
+                await dispatch(login({ email, password }))
+            } catch (e) {
+                console.log(e)
+            }
+
+        } else {
+            const { emailErrorType, passwordErrorType } = ErrorService.handleLoginForm(email, password)
+            dispatch(setEmailErrorType(emailErrorType))
+            dispatch(setPasswordErrorType(passwordErrorType))
+        }
+    }
 
     return (
         <>
@@ -37,42 +61,39 @@ export function Login() {
                 </div>
                 <div className="login-block-item">
                     <LoginInput
-                        stateType='emailValue'
+                        setValue={setEmail}
                         iconName={faEnvelope}
                         inputType='email'
-                        changeType='changeEmailValue'
+                        formValue={email}
                     />
                 </div>
-                <Incorrect inputType='email' errorType={loginState.errorType}/>
+                <Incorrect inputType='email' errorType={loginState.errorType} />
                 <div className="login-block-item">
                     <LoginInput
-                        stateType='passwordValue'
+                        setValue={setPassword}
                         iconName={faKey}
                         inputType='password'
-                        changeType='changePasswordValue'
+                        formValue={password}
                     />
                 </div>
-                <Incorrect inputType='password' errorType={loginState.errorType}/>
+                <Incorrect inputType='password' errorType={loginState.errorType} />
+                {loginApiError
+                ? <div className='api-error login-block-item'>
+                    {loginApiError}
+                </div>
+                : ''
+                }
+                
                 <div className="login-block-item">
                     <MyButton
-                        onClick={
-                            (e: React.MouseEvent<HTMLButtonElement>) => {
-                                e.preventDefault()
-                                setIsClicked(true)
-                                if (handleLoginForm(
-                                    dispatch,
-                                    actions,
-                                    loginState
-                                )) navigate('/dashboard')
-                            }
-                        }
+                        onClick={handleSubmit}
                         buttonText='Sign In'
                         buttonType='submit'
                         iconName={faRightToBracket}
                     />
                 </div>
                 <div className="login-block-item link">
-                    <Link onClick={() => dispatch(actions.clearAll())} to={'/register'} className='links'>Register</Link>
+                    <Link onClick={() => dispatch(clearAll())} to={'/register'} className='links'>Register</Link>
                 </div>
             </div>
         </>

@@ -4,3 +4,8 @@ export type errorType = {
     name: 'emptyError' | 'shortNameError' | '',
     confirm: 'emptyError' | 'matchError' | ''
 }
+
+export type emailErrorType = 'emptyError' | 'unvalidEmailError' | ''
+export type passwordErrorType = 'emptyError' |'shortPasswordError' | ''
+export type nameErrorType = 'emptyError' | 'shortNameError' | ''
+export type confirmErrorType = 'emptyError' | 'matchError' | ''

@@ -3,19 +3,11 @@ import { errorType } from "../../../models/IErrorTypes"
 
 
 export interface RegisterState {
-    emailValue: string,
-    passwordValue: string,
-    nameValue: string,
-    confirmPasswordValue: string,
     errorType: errorType
 }
 
 
 const initialState: RegisterState = {
-    confirmPasswordValue: '',
-    emailValue: '',
-    nameValue: '',
-    passwordValue: '',
     errorType: {
         email:'',
         password: '',
@@ -29,18 +21,6 @@ export const registerSlice = createSlice({
     name: 'register',
     initialState,
     reducers: {
-        changeEmailValue: (state, action: PayloadAction<string>) => {
-            state.emailValue = action.payload
-        },
-        changePasswordValue: (state, action: PayloadAction<string>) => {
-            state.passwordValue = action.payload
-        },
-        changeNameValue: (state, action: PayloadAction<string>) => {
-            state.nameValue = action.payload
-        },
-        changeConfirmPasswordValue: (state, action: PayloadAction<string>) => {
-            state.confirmPasswordValue = action.payload
-        },
         setEmailErrorType: (state, action: PayloadAction<'emptyError' | 'unvalidEmailError' | ''>) => {
             state.errorType.email = action.payload
         },

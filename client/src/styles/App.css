@@ -214,6 +214,13 @@
     padding: 5px 0 20px 0;
 }
 
+.api-error {
+    color: #a80000;
+    text-align: center;
+    width: 100%;
+    padding: 5px 0 20px 0;
+}
+
 
 .dashboard-sidebar-menu {
     height: 100%;

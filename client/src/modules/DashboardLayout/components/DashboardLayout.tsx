@@ -9,12 +9,15 @@ import DashboardSection from "../../../components/DashboardSection/DasboardSecti
 
 
 export function DashboardLayout() {
-    const { nameValue: username } = useAppSelector(state => state.registerReducer)
+    const { user } = useAppSelector(state => state.authReducer)
+
     const { currentActive } = useAppSelector(state => state.dashboardReducer)
     useEffect(() => {
         document.querySelector('.active')?.classList.remove('active');
         document.querySelector(`.dashboard-section-${currentActive[0].toLowerCase() + currentActive.slice(1)}`)?.classList.add('active');
     }, [currentActive])
+
+
 
 
     return (
@@ -25,8 +28,8 @@ export function DashboardLayout() {
                 </div>
                 <div className="dashboard-side-item">
                     <img className="user-logo" src={logoUserURL} alt="" />
-                    <span>{username
-                        ? username
+                    <span>{user
+                        ? user.name
                         : 'Guest'
                     }</span>
                 </div>
@@ -49,8 +52,8 @@ export function DashboardLayout() {
             </div>
             <div className="dashboard-main-menu">
                 <div className="gradient-bar">
-                    <FontAwesomeIcon icon={faBars}/>
-                    <FontAwesomeIcon icon={faBriefcase}/>
+                    <FontAwesomeIcon icon={faBars} />
+                    <FontAwesomeIcon icon={faBriefcase} />
                 </div>
                 <Outlet />
             </div>

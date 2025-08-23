@@ -4,26 +4,63 @@ import { faKey, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux'
 import { useEffect, useState } from 'react'
 import { registerSlice } from '../store/RegisterSlice'
-import { handleRegisterForm } from '../helpers/registerHelper'
 import MyButton from '../../../components/EntryButton/MyButton'
 import Incorrect from '../../../components/IncorrectSection/Incorrect'
 import LanguageBtn from '../../../components/LanguageButton/LanguageBtn'
-import RegisterInput from './RegsiterInput'
+import ErrorService from '../../../services/ErrorService'
+import FormService from '../../../services/FormService'
+import { register } from '../../../store/reducers/authSlice'
+import LoginInput from './LoginInput'
 
 export function Register() {
     const navigate = useNavigate()
-    const registerState = useAppSelector(state => state.registerReducer)
     const dispatch = useAppDispatch()
-    const actions = registerSlice.actions
 
-    const [isClicked, setIsClicked] = useState(false)
+    const registerState = useAppSelector(state => state.registerReducer)
+    const authState = useAppSelector(state => state.authReducer)
+
+    const { clearAll,
+        setConfirmErrorType,
+        setEmailErrorType,
+        setNameErrorType,
+        setPasswordErrorType } = registerSlice.actions
+
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [name, setName] = useState<string>('')
+    const [confirm, setConfirm] = useState<string>('')
+    const [registerApiError, setRegisterApiError] = useState('')
 
     useEffect(() => {
-        if (isClicked) {
-            handleRegisterForm(dispatch, actions, registerState)
+        if (authState.isAuth) {
+            navigate('/dashboard')
         }
+    }, [authState.isAuth, navigate])
 
-    }, [registerState])
+    useEffect(() => {
+        setRegisterApiError(authState.registerApiError)
+    }, [authState.registerApiError])
+
+    async function handleSubmit() {
+        if (FormService.checkRegister(email, password, name, confirm)) {
+            try {
+                dispatch(clearAll())
+                await dispatch(register({ name, email, password }))
+            } catch (e) {
+                console.log(e)
+            }
+
+        } else {
+            const { emailErrorType,
+                passwordErrorType,
+                confirmErrorType,
+                nameErrorType } = ErrorService.handleRegisterForm(email, password, name, confirm)
+            dispatch(setEmailErrorType(emailErrorType))
+            dispatch(setPasswordErrorType(passwordErrorType))
+            dispatch(setNameErrorType(nameErrorType))
+            dispatch(setConfirmErrorType(confirmErrorType))
+        }
+    }
 
     return (
         <>
@@ -36,61 +73,57 @@ export function Register() {
                     Enter your info to register
                 </div>
                 <div className="login-block-item">
-                    <RegisterInput
-                        stateType='nameValue'
+                    <LoginInput
+                        formValue={name}
+                        setValue={setName}
                         iconName={faEnvelope}
                         inputType='text'
-                        changeType='changeNameValue'
                     />
                 </div>
-                <Incorrect inputType='name' errorType={registerState.errorType}/>
+                <Incorrect inputType='name' errorType={registerState.errorType} />
                 <div className="login-block-item">
-                    <RegisterInput
-                        stateType='emailValue'
+                    <LoginInput
+                        setValue={setEmail}
+                        formValue={email}
                         iconName={faEnvelope}
                         inputType='email'
-                        changeType='changeEmailValue'
                     />
                 </div>
-                <Incorrect inputType='email' errorType={registerState.errorType}/>
+                <Incorrect inputType='email' errorType={registerState.errorType} />
                 <div className="login-block-item">
-                    <RegisterInput
-                        stateType='passwordValue'
+                    <LoginInput
+                        formValue={password}
+                        setValue={setPassword}
                         iconName={faKey}
                         inputType='password'
-                        changeType='changePasswordValue'
                     />
                 </div>
-                <Incorrect inputType='password' errorType={registerState.errorType}/>
+                <Incorrect inputType='password' errorType={registerState.errorType} />
                 <div className="login-block-item">
-                    <RegisterInput
-                        stateType='confirmPasswordValue'
+                    <LoginInput
+                        setValue={setConfirm}
+                        formValue={confirm}
                         iconName={faEnvelope}
                         inputType='password'
-                        changeType='changeConfirmPasswordValue'
                     />
                 </div>
-                <Incorrect inputType='confirm' errorType={registerState.errorType}/>
+                <Incorrect inputType='confirm' errorType={registerState.errorType} />
+                {registerApiError
+                ? <div className='api-error login-block-item'>
+                    {registerApiError}
+                </div>
+                : ''
+                }
                 <div className="login-block-item">
                     <MyButton
-                        onClick={
-                            (e: React.MouseEvent) => {
-                                e.preventDefault()
-                                setIsClicked(true)
-                                if (handleRegisterForm(
-                                    dispatch,
-                                    actions,
-                                    registerState
-                                )) navigate('/dashboard')
-                            }
-                        }
+                        onClick={handleSubmit}
                         buttonText='Register'
                         buttonType='submit'
                         iconName={faRightToBracket}
                     />
                 </div>
                 <div className="login-block-item link">
-                    <Link onClick={() => dispatch(actions.clearAll())} to={'/login'} className='links'>Login</Link>
+                    <Link onClick={() => dispatch(clearAll())} to={'/login'} className='links'>Login</Link>
                 </div>
             </div>
         </>
