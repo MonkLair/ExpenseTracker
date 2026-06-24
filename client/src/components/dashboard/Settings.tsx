@@ -1,4 +1,4 @@
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons"
+import { faArrowRightArrowLeft, faFloppyDisk } from "@fortawesome/free-solid-svg-icons"
 import MyButton from "../EntryButton/MyButton"
 import { useAppSelector } from "../../hooks/redux"
 import { useState } from "react"
@@ -39,22 +39,33 @@ export default function Settings() {
                 <div className="settings-description">Below are the current setup for this UI</div>
                 <div className="settings-info-container">
                     <div className="settings-currency-item">Menu Color:</div>
-                    <div className="settings-currency-item settings-currency"></div>
-                    <div className="settings-currency-item change-currency-btn"></div>
-                </div>
-                <div className="settings-info-container">
-                    <div className="settings-currency-item">Menu Mode:</div>
-                    <div className="settings-currency-item settings-currency"></div>
-                    <div className="settings-currency-item change-currency-btn"></div>
+                    <div className="settings-currency-item settings-currency profile-name">Classic</div>
+                    <div className="change-button">
+                        <MyButton
+                            buttonType="button"
+                            buttonText="Change"
+                            iconName={faArrowRightArrowLeft}
+                            onClick={() => { }}
+                        />
+                    </div>
+                    {/* <div className="settings-currency-item change-currency-btn"></div> */}
                 </div>
                 <div className="settings-info-container">
                     <div className="settings-currency-item">Language:</div>
-                    <div className="settings-currency-item settings-currency"></div>
-                    <div className="settings-currency-item change-currency-btn"></div>
+                    <div className="settings-currency-item settings-currency profile-name">English</div>
+                    <div className="change-button">
+                        <MyButton
+                            buttonType="button"
+                            buttonText="Change"
+                            iconName={faArrowRightArrowLeft}
+                            onClick={() => { }}
+                        />
+                    </div>
+                    {/* <div className="settings-currency-item change-currency-btn"></div> */}
                 </div>
             </div>
             {isModalOpen
-                ? <ChangeCurrencyModal setIsOpen={setIsModalOpen}/>
+                ? <ChangeCurrencyModal setIsOpen={setIsModalOpen} />
                 : null
             }
         </div>

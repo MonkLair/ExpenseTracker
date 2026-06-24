@@ -5,7 +5,8 @@ export const currentTimeInput =
     (time.getMonth() + 1) + '-' +
     (time.getDate() < 10 ? '0' : '') +
     time.getDate() + 'T' +
-    time.getHours() + ':' +
+    (time.getHours() < 10 ? '0' : '') +
+    time.getHours() + ':'+
     (time.getMinutes() < 10 ? '0' : '') +
     time.getMinutes()
 

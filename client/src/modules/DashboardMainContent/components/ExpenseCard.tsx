@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../hooks/redux"
-import { toCorrectFormat } from "../helpers/toCorrectFormat"
+import ValueExpenseCard from "./ValueExpenseCard"
 
 interface ExpenseCardProps{
     spentOn: string,
@@ -19,18 +19,13 @@ export default function ExpenseCard({spentOn, amount, category, date}: ExpenseCa
                 <div className="expense-card-item">
                     <span className="expense-description">Here a few expenses you've made</span>
                 </div>
-                <div className="expense-card-item">
-                    <div className="expense-info-item info-purpose">
-                        <span>{spentOn}</span>
-                        <span>{amount + ' ' + currency}</span>
-                    </div>
-                    <div className="expense-info-item info-category">
-                        <span>{category}</span>
-                    </div>
-                    <div className="expense-info-item info-date">
-                        <span>{toCorrectFormat(date)}</span>
-                    </div>
-                </div>
+                <ValueExpenseCard
+                    amount = {amount}
+                    spentOn = {spentOn}
+                    category= {category}
+                    date = {date}
+                    currency= {currency}
+                />
             </div>
         </>
     )

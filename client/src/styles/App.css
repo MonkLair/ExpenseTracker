@@ -566,7 +566,8 @@
     width: 100%;
 }
 
-.expense-card-item:last-child {
+.value-expense-card-item {
+    width: 100%;
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #e9e1e1;
@@ -620,7 +621,8 @@
 
 .profile-content-container,
 .settings-content-container,
-.logout-content-container {
+.logout-content-container,
+.expense-content-container {
     margin-top: 50px;
     padding: 20px;
     display: flex;
@@ -687,7 +689,8 @@
     width: 100%;
 }
 
-.profile-button span, .settings-button span {
+.profile-button span,
+.settings-button span {
     font-size: 16px;
 }
 
@@ -748,7 +751,7 @@
     font-size: 16px;
 }
 
-.settings-item:first-child {
+.settings-item {
     height: 35%;
 }
 
@@ -865,4 +868,57 @@
 
 .logout-button {
     width: 6%;
+}
+
+.change-button {
+    width: 30%;
+}
+
+.expense-content-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 8%;
+}
+
+.header-search {
+    width: 30%;
+}
+
+.expense-main-block {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 90%;
+    align-content: flex-start;
+}
+
+.expense-main-block .value-expense-card-item {
+    width: 30%;
+    height: 25%;
+    background-color: white;
+}
+
+.expense-icon-block {
+    display: flex;
+    justify-content: space-between;
+    height: 0.5%;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.expense-cards-btn {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    transition: 0.3s;
+}
+
+.expense-cards-btn:hover {
+    color: #6e15c1;
 }
