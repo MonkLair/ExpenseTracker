@@ -37,7 +37,7 @@ class UserController {
     async logout(req, res, next) {
         try {
             console.log('message')
-            const {refreshToken} = req.cookies
+            const { refreshToken } = req.cookies
             const token = await userService.logout(refreshToken)
             res.clearCookie('refreshToken')
             return res.json(token)
@@ -48,7 +48,7 @@ class UserController {
 
     async refresh(req, res, next) {
         try {
-            const {refreshToken} = req.cookies
+            const { refreshToken } = req.cookies
             const userData = await userService.refresh(refreshToken)
             res.cookie('refreshToken', userData.refreshToken, { httpOnly: true, maxAge: 30 * 24 * 3600 * 1000 })
             return res.json(userData)
@@ -56,6 +56,35 @@ class UserController {
             next(e)
         }
     }
+    async updatePassword(req, res, next) {
+        try {
+            const { password, newPassword, email } = req.body
+            const user = await userService.updatePassword(password, newPassword, email)
+            return res.json(user)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async updateName(req, res, next) {
+        try {
+            const { newName, email } = req.body
+            const user = await userService.updateName(newName, email)
+            return res.json(user)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async updateEmail(req, res, next) {
+        try {
+            const { newEmail, email } = req.body
+            const user = await userService.updateEmail(newEmail, email)
+            return res.json(user)
+        } catch (e) {
+            next(e)
+        }
+    }
 }
 
-module.exports = new UserController
+module.exports = new UserController()

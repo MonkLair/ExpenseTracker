@@ -1,6 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { DashboardState } from "../../models/IDashboardState";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { currentActiveTypes, DashboardState } from "../../models/IDashboardState";
 
 
 const initialState: DashboardState = {
@@ -11,6 +10,9 @@ export const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState, 
     reducers: {
+        setCurrentPage: (state, action: PayloadAction<currentActiveTypes>) => {
+            state.currentActive = action.payload
+        }
 
     }
 })

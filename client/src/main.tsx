@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')!).render(
                     <Route path='register' element={<RegisterPage />}></Route>
                 </Route>
                 <Route path='dashboard' element={<DashboardPage />}>
-                    <Route index element={<DashboardMain />} />
+                    <Route path='Main' element={<DashboardMain />} />
                     <Route path='expense' element={<Expense />} />
                     <Route path='income' element={<Income />} />
                     <Route path='calendar' element={<Calendar />} />

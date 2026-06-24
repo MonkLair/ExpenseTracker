@@ -1,4 +1,4 @@
-import { Outlet } from "react-router"
+import { Link, Outlet } from "react-router"
 import { useEffect } from "react"
 import { faBars, faBriefcase, faCalendarDays, faDollarSign, faGear, faHouse, faMoneyBill, faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons"
 import logoSidebarURL from '../../../assets/logo-sidebar.png'
@@ -14,17 +14,14 @@ export function DashboardLayout() {
     const { currentActive } = useAppSelector(state => state.dashboardReducer)
     useEffect(() => {
         document.querySelector('.active')?.classList.remove('active');
-        document.querySelector(`.dashboard-section-${currentActive[0].toLowerCase() + currentActive.slice(1)}`)?.classList.add('active');
+        document.querySelector(`.dashboard-section-${currentActive}`)?.classList.add('active');
     }, [currentActive])
-
-
-
 
     return (
         <>
             <div className="dashboard-sidebar-menu">
                 <div className="dashboard-side-item">
-                    <img className="sidebar-logo" src={logoSidebarURL} alt="" />
+                    <Link to='/'><img className="sidebar-logo" src={logoSidebarURL} alt="" /></Link>
                 </div>
                 <div className="dashboard-side-item">
                     <img className="user-logo" src={logoUserURL} alt="" />
@@ -34,19 +31,19 @@ export function DashboardLayout() {
                     }</span>
                 </div>
                 <div className="dashboard-side-item">
-                    <DashboardSection sectionName="main" iconName={faHouse} />
+                    <DashboardSection sectionName="Main" iconName={faHouse} />
 
-                    <DashboardSection sectionName="expense" iconName={faDollarSign} />
+                    <DashboardSection sectionName="Expense" iconName={faDollarSign} />
 
-                    <DashboardSection sectionName="income" iconName={faMoneyBill} />
+                    <DashboardSection sectionName="Income" iconName={faMoneyBill} />
 
-                    <DashboardSection sectionName="calendar" iconName={faCalendarDays} />
+                    <DashboardSection sectionName="Calendar" iconName={faCalendarDays} />
 
-                    <DashboardSection sectionName="settings" iconName={faGear} />
+                    <DashboardSection sectionName="Settings" iconName={faGear} />
 
-                    <DashboardSection sectionName="profile" iconName={faUser} />
+                    <DashboardSection sectionName="Profile" iconName={faUser} />
 
-                    <DashboardSection sectionName="logout" iconName={faRightFromBracket} />
+                    <DashboardSection sectionName="Logout" iconName={faRightFromBracket} />
 
                 </div>
             </div>

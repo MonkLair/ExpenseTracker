@@ -373,6 +373,16 @@
     width: 100%;
 }
 
+.main-block-expense-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    align-items: top;
+    justify-content: space-around;
+    padding: -200px 0 -20px 0;
+}
+
 .main-block-item:first-child {
     height: 20%;
 }
@@ -432,7 +442,7 @@
     background-color: white;
     border: 1px solid #c8c8c8;
     border-radius: 8px;
-    width: 30%;
+    width: 40%;
     height: 100%;
     box-shadow: 0 4px 2px -4px black;
     overflow: hidden;
@@ -446,13 +456,17 @@
     width: 100%;
 }
 
-.expense-title {
+.expense-title,
+.profile-title,
+.settings-item {
     font-size: 2em;
     font-weight: bold;
     color: #5715a5;
 }
 
-.expense-description {
+.expense-description,
+.profile-description,
+.settings-description {
     color: #6e15c1;
     font-weight: bold;
     opacity: 0.7;
@@ -491,7 +505,8 @@
     border-color: #6e15c1;
 }
 
-.expense-input {
+.expense-input,
+.profile-input {
     width: 100%;
     border: 1px solid #e9e1e1;
     outline: none;
@@ -533,7 +548,7 @@
 }
 
 .expense-card-block {
-    width: 30%;
+    width: 45%;
     height: 45%;
     background-color: white;
     border: 1px solid #c8c8c8;
@@ -590,7 +605,7 @@
 
 .info-category {
     color: #d6619c;
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .info-date {
@@ -601,4 +616,253 @@
 .expense-input-date {
     appearance: none;
     color: #666666;
+}
+
+.profile-content-container,
+.settings-content-container,
+.logout-content-container {
+    margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    height: 85%;
+}
+
+.profile-item,
+.settings-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    text-align: center;
+    align-items: start;
+    background-color: white;
+    border: 1px solid #c8c8c8;
+    border-radius: 8px;
+    width: 49.5%;
+    height: 50%;
+    box-shadow: 0 4px 2px -4px black;
+    overflow: hidden;
+}
+
+.profile-item:first-child {
+    height: 40%;
+}
+
+
+.profile-info-container,
+.settings-info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.profile-email-item,
+.profile-name-item {
+    width: 50%;
+    display: flex;
+    justify-content: start;
+}
+
+.profile-email-item:first-child,
+.profile-name-item:first-child {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #5715a5;
+}
+
+.profile-name,
+.profile-email {
+    color: #ff9702;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.profile-button,
+.settings-button {
+    background-color: #6e15c1;
+    color: white;
+    border-radius: 5px;
+    padding: 2px;
+    width: 100%;
+}
+
+.profile-button span, .settings-button span {
+    font-size: 16px;
+}
+
+.profile-inputs {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+}
+
+.profile-modal-container {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-modal {
+    background-color: white;
+    width: 30%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    padding: 20px;
+}
+
+.update-block {
+    width: 100%;
+    height: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal-input {
+    padding: 6px;
+    border-radius: 3px;
+    transition: 0.2s border-color;
+}
+
+.modal-input:hover,
+.modal-input:focus,
+.profile-input:hover,
+.profile-input:focus {
+    border-color: #6e15c1;
+}
+
+.settings-currency-item {
+    font-size: 16px;
+}
+
+.settings-item:first-child {
+    height: 35%;
+}
+
+.currency-modal {
+    background-color: white;
+    width: 20%;
+    height: 100%;
+    padding: 15px 15px 0 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.currency-modal-container {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    text-align: center;
+}
+
+.close-icon {
+    cursor: pointer;
+}
+
+.modal-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-name span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5715a5;
+}
+
+.currencies {
+    border: 1px solid #e9e1e1;
+    border-radius: 5px;
+    border-bottom: 0;
+    height: 95%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.currencies-search {
+    border: 1px solid #e9e1e1;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    outline: none;
+    transition: 0.2s all ease;
+    font-size: 16px;
+}
+
+.currencies-search:hover,
+.currencies-search:focus {
+    border-color: #6e15c1;
+}
+
+.currencies-search-container {
+    height: 7%;
+}
+
+.search-icon {
+    position: absolute;
+    color: black;
+    cursor: pointer;
+    right: 40px;
+    top: 89px;
+}
+
+.currency-list {
+    overflow: scroll;
+    height: 91%;
+    padding: 5px 15px 0 15px;
+}
+
+.currency-item {
+    text-align: start;
+    color: #ff9702;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    transition: 0.2s ease;
+}
+
+.currency-item:hover {
+    background-color: #6e15c1;
+}
+
+.currencies hr {
+    opacity: 0.4;
+}
+
+.currency-list .active {
+    background-color: #6e15c1;
+}
+
+
+.logout-content-container {
+    justify-content: center;
+}
+
+.logout-button {
+    width: 6%;
 }

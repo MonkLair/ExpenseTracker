@@ -3,6 +3,7 @@ import { registerReducer } from "../modules/RegisterForm";
 import { loginReducer } from "../modules/LoginForm";
 import { dashboardReducer } from "./reducers/dashboardSlice";
 import { authReducer } from "./reducers/authSlice";
+import { dataReducer } from "./reducers/dataSlice";
 
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
         loginReducer,
         registerReducer,
         dashboardReducer,
-        authReducer
+        authReducer,
+        dataReducer
     }
 })
 

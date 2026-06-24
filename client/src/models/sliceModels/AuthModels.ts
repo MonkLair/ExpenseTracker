@@ -23,3 +23,18 @@ export interface Reply {
     errors: []
 }
 
+export interface updatePasswordProps {
+    password: string,
+    newPassword: string,
+    email: string
+}
+
+export interface updateNameProps {
+    newName: string,
+    email: string
+}
+
+export interface updateEmailProps {
+    newEmail: string,
+    email: string
+}

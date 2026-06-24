@@ -1,6 +1,15 @@
-import { currentTime } from "../consts/CurrtentTime";
+import { useAppSelector } from "../../../hooks/redux"
+import { toCorrectFormat } from "../helpers/toCorrectFormat"
 
-export default function ExpenseCard() {
+interface ExpenseCardProps{
+    spentOn: string,
+    amount: string,
+    category: string,
+    date: string
+}
+
+export default function ExpenseCard({spentOn, amount, category, date}: ExpenseCardProps) {
+    const {currency} = useAppSelector(state => state.dataReducer)
     return (
         <>
             <div className="expense-card-block">
@@ -12,14 +21,14 @@ export default function ExpenseCard() {
                 </div>
                 <div className="expense-card-item">
                     <div className="expense-info-item info-purpose">
-                        <span>Bus</span>
-                        <span>20 BDT.</span>
+                        <span>{spentOn}</span>
+                        <span>{amount + ' ' + currency}</span>
                     </div>
                     <div className="expense-info-item info-category">
-                        <span>Fare</span>
+                        <span>{category}</span>
                     </div>
                     <div className="expense-info-item info-date">
-                        <span>{currentTime}</span>
+                        <span>{toCorrectFormat(date)}</span>
                     </div>
                 </div>
             </div>

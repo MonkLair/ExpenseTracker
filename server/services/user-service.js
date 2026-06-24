@@ -5,6 +5,7 @@ const UserDto = require('../dtos/user-dto')
 const ApiError = require('../exceptions/api-error')
 const tokenModel = require('../models/token-model')
 const userModel = require('../models/user-model')
+const dataService = require('./data-service')
 
 
 class UserService {
@@ -19,10 +20,12 @@ class UserService {
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })
         const token = await tokenService.saveTokens(userDto.id, tokens.refreshToken)
+        const userData = await dataService.createData(userDto.id)
 
         return {
             ...tokens,
-            user: userDto
+            user: userDto,
+            userData
         }
     }
 
@@ -38,10 +41,12 @@ class UserService {
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })
         const token = await tokenService.saveTokens(userDto.id, tokens.refreshToken)
+        const userData = await dataService.getUserData(userDto.id)
 
         return {
             ...tokens,
-            user: userDto
+            user: userDto,
+            userData
         }
     }
 
@@ -63,11 +68,42 @@ class UserService {
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({ ...userDto })
         const token = await tokenService.saveTokens(userDto.id, tokens.refreshToken)
+        const userExpenseData = await dataService.getUserData(userDto.id)
 
         return {
             ...tokens,
-            user: userDto
+            user: userDto,
+            userData: userExpenseData
         }
+    }
+
+    async updatePassword(password, newPassword, email) {
+        const user = await UserModel.findOne({ email })
+        const userDto = new UserDto(user)
+        const isPassEquals = await bcrypt.compare(password, user.password)
+        if (!isPassEquals) {
+            throw ApiError.BadRequest('Неверный пароль')
+        }
+        const newHashPassword = await bcrypt.hash(newPassword, 3)
+        user.password = newHashPassword
+        await user.save()
+        return userDto
+    }
+
+    async updateName(newName, email) {
+        const user = await UserModel.findOne({ email })
+        user.name = newName
+        await user.save()
+        const userDto = new UserDto(user)
+        return userDto
+    }
+
+    async updateEmail(newEmail, email) {
+        const user = await UserModel.findOne({ email })
+        user.email = newEmail
+        await user.save()
+        const userDto = new UserDto(user)
+        return userDto
     }
 }
 

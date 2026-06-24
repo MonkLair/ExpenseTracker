@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router'
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import { faAddressCard, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { faKey, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { useAppSelector, useAppDispatch } from '../../../hooks/redux'
 import { useEffect, useState } from 'react'
@@ -33,7 +33,7 @@ export function Register() {
 
     useEffect(() => {
         if (authState.isAuth) {
-            navigate('/dashboard')
+            navigate('/dashboard/main')
         }
     }, [authState.isAuth, navigate])
 
@@ -76,7 +76,7 @@ export function Register() {
                     <LoginInput
                         formValue={name}
                         setValue={setName}
-                        iconName={faEnvelope}
+                        iconName={faAddressCard}
                         inputType='text'
                     />
                 </div>
@@ -103,7 +103,7 @@ export function Register() {
                     <LoginInput
                         setValue={setConfirm}
                         formValue={confirm}
-                        iconName={faEnvelope}
+                        iconName={faKey}
                         inputType='password'
                     />
                 </div>
