@@ -51,6 +51,7 @@ export default function Expense() {
                                 date={operation.date}
                                 category={operation.expenseCategory}
                                 currency={currency}
+                                withDelete={true}
                                 key={index}
                             />
                         })

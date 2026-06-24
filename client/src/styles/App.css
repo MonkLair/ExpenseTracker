@@ -610,8 +610,12 @@
 }
 
 .info-date {
+    display: flex;
+    justify-content: space-between;
     color: #5715a5;
     font-size: 14px;
+    text-align: center;
+    align-items: center;
 }
 
 .expense-input-date {
@@ -921,4 +925,25 @@
 
 .expense-cards-btn:hover {
     color: #6e15c1;
+}
+
+.expense-delete-button {
+    background-color: transparent;
+    color: #5715a5;
+    width: 25%;
+    padding: 6px 10px;
+    border: 1px solid #6e15c1;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all ease 0.4s;
+}
+
+.expense-delete-button:hover {
+    background-color: rgb(236, 69, 69);
+    color: white;
+    border-color: grey;
 }

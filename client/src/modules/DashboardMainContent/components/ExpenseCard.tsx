@@ -25,6 +25,7 @@ export default function ExpenseCard({spentOn, amount, category, date}: ExpenseCa
                     category= {category}
                     date = {date}
                     currency= {currency}
+                    withDelete={false}
                 />
             </div>
         </>
